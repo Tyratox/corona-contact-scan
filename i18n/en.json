@@ -19,5 +19,5 @@
   "Scan.success.testcall": "Testcall",
   "Scan.success.ok": "OK",
   "Scan.askingPermissions": "Asking for access to the camera",
-  "Scan.noPermissions": "No permissions to access the camera. You can change this in the privacy settings."
+  "Scan.noPermissions": "No permissions to access the camera. You can change this in the privacy settings"
 }
