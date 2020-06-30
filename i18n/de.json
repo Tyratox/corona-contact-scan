@@ -13,11 +13,11 @@
   "Addresses.phoneNumber": "Telefonnummer",
   "Scan.error": "Fehler",
   "Scan.error.invalidFormat": "Die eingelesenen Daten sind nicht korrekt formatiert",
-  "Scan.error.dataIncompleteWrong": "Die eingelesenen Daten sind nicht vollständig oder ungültig.",
+  "Scan.error.dataIncompleteWrong": "Die eingelesenen Daten sind nicht vollständig oder ungültig",
   "Scan.success": "Erfolg",
   "Scan.success.dataRead": "Kontaktdaten erfolgreich eingelesen",
   "Scan.success.testcall": "Testanruf",
   "Scan.success.ok": "OK",
   "Scan.askingPermissions": "Frage nach Kameraberechtigungen",
-  "Scan.noPermissions": "Keinen Zugriff auf die Kamera. Dies kann in den Datenschutzeinstellungen geändert werden."
+  "Scan.noPermissions": "Keinen Zugriff auf die Kamera. Dies kann in den Datenschutzeinstellungen geändert werden"
 }
