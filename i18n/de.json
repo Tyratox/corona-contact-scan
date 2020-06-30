@@ -1,0 +1,23 @@
+{
+  "App.navigation.scan": "Scan",
+  "App.navigation.addresses": "Adressen",
+  "Addresses.exportEntries": "Exportiere Einträge",
+  "Addresses.deleteEntries": "Lösche Einträge",
+  "Addresses.dismiss": "Schliessen",
+  "Addresses.call": "Anrufen",
+  "Addresses.firstName": "Vorname",
+  "Addresses.lastName": "Nachname",
+  "Addresses.street": "Strasse",
+  "Addresses.postalCode": "Postleitzahl",
+  "Addresses.city": "Stadt",
+  "Addresses.phoneNumber": "Telefonnummer",
+  "Scan.error": "Fehler",
+  "Scan.error.invalidFormat": "Die eingelesenen Daten sind nicht korrekt formatiert",
+  "Scan.error.dataIncompleteWrong": "Die eingelesenen Daten sind nicht vollständig oder ungültig.",
+  "Scan.success": "Erfolg",
+  "Scan.success.dataRead": "Kontaktdaten erfolgreich eingelesen",
+  "Scan.success.testcall": "Testanruf",
+  "Scan.success.ok": "OK",
+  "Scan.askingPermissions": "Frage nach Kameraberechtigungen",
+  "Scan.noPermissions": "Keinen Zugriff auf die Kamera. Dies kann in den Datenschutzeinstellungen geändert werden."
+}

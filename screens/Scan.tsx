@@ -4,12 +4,20 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { Alert, Text, Button, AsyncStorage, StyleSheet } from "react-native";
+import {
+  Alert,
+  Text,
+  Button,
+  AsyncStorage,
+  StyleSheet,
+  Linking,
+} from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BarCodeScanner, BarCodeScannedCallback } from "expo-barcode-scanner";
 import { RootStackParamList } from "../App";
+import { useIntl, defineMessages } from "react-intl";
 
 const ScreenView = styled(SafeAreaView)`
   flex: 1;
@@ -39,9 +47,50 @@ export interface Address {
 
 type ScanNavigationProp = StackNavigationProp<RootStackParamList, "Scan">;
 
+const messages = defineMessages({
+  error: {
+    id: "Scan.error",
+    defaultMessage: "Error",
+  },
+  errorInvalidFormat: {
+    id: "Scan.error.invalidFormat",
+    defaultMessage: "The scanned data isn't formatted correctly",
+  },
+  errorDataIncompleteInvalid: {
+    id: "Scan.error.dataIncompleteWrong",
+    defaultMessage: "The scanned data is incomplete or invalid",
+  },
+  success: {
+    id: "Scan.success",
+    defaultMessage: "Success",
+  },
+  dataRead: {
+    id: "Scan.success.dataRead",
+    defaultMessage: "Contact data successfully read",
+  },
+  testcall: {
+    id: "Scan.success.testcall",
+    defaultMessage: "Testcall",
+  },
+  ok: {
+    id: "Scan.success.ok",
+    defaultMessage: "OK",
+  },
+  askingPermissions: {
+    id: "Scan.askingPermissions",
+    defaultMessage: "Asking for access to the camera",
+  },
+  noPermissions: {
+    id: "Scan.noPermissions",
+    defaultMessage:
+      "No permissions to access the camera. You can change this in the privacy settings.",
+  },
+});
+
 const Scan: FunctionComponent<{
   navigation: ScanNavigationProp;
 }> = ({ navigation }) => {
+  const intl = useIntl();
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [hasPermission, setHasPermission] = useState<null | boolean>(null);
   const [enabled, setEnabled] = useState(true);
@@ -92,15 +141,18 @@ const Scan: FunctionComponent<{
     try {
       data = JSON.parse(rawData);
     } catch (e) {
-      Alert.alert("Fehler", "Entählt nicht korrekt formatierte Daten!");
+      Alert.alert(
+        intl.formatMessage(messages.error),
+        intl.formatMessage(messages.errorInvalidFormat)
+      );
       return;
     }
 
     for (const key of REQUIRED_KEYS) {
       if (!(key in data) || data[key].length === 0) {
         Alert.alert(
-          "Fehler",
-          `Die eingelesenen Daten sind nicht vollständig oder inkorrekt.`
+          intl.formatMessage(messages.error),
+          intl.formatMessage(messages.errorDataIncompleteInvalid)
         );
         break;
       }
@@ -115,17 +167,28 @@ const Scan: FunctionComponent<{
 
     setAddresses(a);
 
-    Alert.alert("Erfolg", "Kontaktdaten eingelesen", [
-      { text: "OK", onPress: () => setEnabled(true) },
-    ]);
+    Alert.alert(
+      intl.formatMessage(messages.success),
+      intl.formatMessage(messages.dataRead),
+      [
+        {
+          text: `${intl.formatMessage(messages.testcall)}`,
+          onPress: () => Linking.openURL(`tel:${data.phoneNumber}`),
+        },
+        {
+          text: intl.formatMessage(messages.ok),
+          onPress: () => setEnabled(true),
+        },
+      ]
+    );
     AsyncStorage.setItem("addresses", JSON.stringify(a));
   };
 
   if (hasPermission === null) {
-    return <Text>Frage nach Kameraberechtigung</Text>;
+    return <Text>{intl.formatMessage(messages.askingPermissions)}</Text>;
   }
   if (hasPermission === false) {
-    return <Text>Keinen Zugriff auf die Kamera</Text>;
+    return <Text>{intl.formatMessage(messages.noPermissions)}</Text>;
   }
 
   return (

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "App.navigation.scan",
+    "defaultMessage": "Scan"
+  },
+  {
+    "id": "App.navigation.addresses",
+    "defaultMessage": "Addresses"
+  },
+  {
+    "id": "Addresses.exportEntries",
+    "defaultMessage": "Export Entries"
+  },
+  {
+    "id": "Addresses.deleteEntries",
+    "defaultMessage": "Delete Entries"
+  },
+  {
+    "id": "Addresses.dismiss",
+    "defaultMessage": "Dismiss"
+  },
+  {
+    "id": "Addresses.call",
+    "defaultMessage": "Call"
+  },
+  {
+    "id": "Addresses.firstName",
+    "defaultMessage": "First name"
+  },
+  {
+    "id": "Addresses.lastName",
+    "defaultMessage": "Last name"
+  },
+  {
+    "id": "Addresses.street",
+    "defaultMessage": "Street"
+  },
+  {
+    "id": "Addresses.postalCode",
+    "defaultMessage": "Postal code"
+  },
+  {
+    "id": "Addresses.city",
+    "defaultMessage": "City"
+  },
+  {
+    "id": "Addresses.phoneNumber",
+    "defaultMessage": "Phone number"
+  },
+  {
+    "id": "Scan.error",
+    "defaultMessage": "Error"
+  },
+  {
+    "id": "Scan.error.invalidFormat",
+    "defaultMessage": "The scanned data isn't formatted correctly"
+  },
+  {
+    "id": "Scan.error.dataIncompleteWrong",
+    "defaultMessage": "The scanned data is incomplete or invalid"
+  },
+  {
+    "id": "Scan.success",
+    "defaultMessage": "Success"
+  },
+  {
+    "id": "Scan.success.dataRead",
+    "defaultMessage": "Contact data successfully read"
+  },
+  {
+    "id": "Scan.success.testcall",
+    "defaultMessage": "Testcall"
+  },
+  {
+    "id": "Scan.success.ok",
+    "defaultMessage": "OK"
+  },
+  {
+    "id": "Scan.askingPermissions",
+    "defaultMessage": "Asking for access to the camera"
+  },
+  {
+    "id": "Scan.noPermissions",
+    "defaultMessage": "No permissions to access the camera. You can change this in the privacy settings."
+  }
+]
