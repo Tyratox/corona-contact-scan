@@ -22,7 +22,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Address } from "./Scan";
-import { defineMessages, useIntl } from "react-intl";
+import i18n from "i18n-js";
 
 const ScreenView = styled(SafeAreaView)`
   flex: 1;
@@ -52,65 +52,9 @@ type AddressesNavigationProp = StackNavigationProp<
   "Addresses"
 >;
 
-const messages = defineMessages({
-  exportEntries: {
-    id: "Addresses.exportEntries",
-    defaultMessage: "Export Entries",
-  },
-  deleteEntries: {
-    id: "Addresses.deleteEntries",
-    defaultMessage: "Delete Entries",
-  },
-  deleteEntry: {
-    id: "Addresses.deleteEntry",
-    defaultMessage: "Delete Entry",
-  },
-  confirm: {
-    id: "Addresses.confirm",
-    defaultMessage: "Confirm",
-  },
-  dismiss: {
-    id: "Addresses.dismiss",
-    defaultMessage: "Dismiss",
-  },
-  call: {
-    id: "Addresses.call",
-    defaultMessage: "Call",
-  },
-  timestamp: {
-    id: "Addresses.timestamp",
-    defaultMessage: "Timestamp",
-  },
-  firstName: {
-    id: "Addresses.firstName",
-    defaultMessage: "First name",
-  },
-  lastName: {
-    id: "Addresses.lastName",
-    defaultMessage: "Last name",
-  },
-  street: {
-    id: "Addresses.street",
-    defaultMessage: "Street",
-  },
-  postalCode: {
-    id: "Addresses.postalCode",
-    defaultMessage: "Postal code",
-  },
-  city: {
-    id: "Addresses.city",
-    defaultMessage: "City",
-  },
-  phoneNumber: {
-    id: "Addresses.phoneNumber",
-    defaultMessage: "Phone number",
-  },
-});
-
 const Addresses: FunctionComponent<{
   navigation: AddressesNavigationProp;
 }> = ({ navigation }) => {
-  const intl = useIntl();
   const [refreshing, setRefreshing] = useState(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
 
@@ -158,20 +102,20 @@ const Addresses: FunctionComponent<{
 
   const exportEntries = async () => {
     const now = new Date();
-    const f = `corona-contact-data-export-${now.getFullYear()}-${
+    const f = `ciao-data-export-${now.getFullYear()}-${
       now.getMonth() + 1
     }-${now.getDate()}`;
     await FileSystem.writeAsStringAsync(
       `${FileSystem.cacheDirectory}/${f}.csv`,
       '"' +
         [
-          intl.formatMessage(messages.timestamp),
-          intl.formatMessage(messages.firstName),
-          intl.formatMessage(messages.lastName),
-          intl.formatMessage(messages.street),
-          intl.formatMessage(messages.postalCode),
-          intl.formatMessage(messages.city),
-          intl.formatMessage(messages.phoneNumber),
+          i18n.t("timestamp"),
+          i18n.t("firstName"),
+          i18n.t("lastName"),
+          i18n.t("street"),
+          i18n.t("postalCode"),
+          i18n.t("city"),
+          i18n.t("phoneNumber"),
         ].join('","') +
         '"\n' +
         addresses
@@ -219,17 +163,17 @@ const Addresses: FunctionComponent<{
                       `${item.street}, ${item.postalCode} ${item.city} ${item.phoneNumber}`,
                       [
                         {
-                          text: intl.formatMessage(messages.dismiss),
+                          text: i18n.t("dismiss"),
                           onPress: () => {},
                           style: "cancel",
                         },
                         {
-                          text: intl.formatMessage(messages.call),
+                          text: i18n.t("call"),
                           onPress: () =>
                             Linking.openURL(`tel:${item.phoneNumber}`),
                         },
                         {
-                          text: intl.formatMessage(messages.deleteEntry),
+                          text: i18n.t("deleteEntry"),
                           onPress: () => deleteEntry(index),
                           style: "destructive",
                         },
@@ -254,12 +198,9 @@ const Addresses: FunctionComponent<{
             );
           }}
         ></FlatList>
+        <Button title={i18n.t("exportEntries")} onPress={exportEntries} />
         <Button
-          title={intl.formatMessage(messages.exportEntries)}
-          onPress={exportEntries}
-        />
-        <Button
-          title={intl.formatMessage(messages.deleteEntries)}
+          title={i18n.t("deleteEntries")}
           onPress={deleteEntries}
           color="#f00"
         />

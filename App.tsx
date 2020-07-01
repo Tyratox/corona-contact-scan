@@ -6,23 +6,29 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Scan from "./screens/Scan";
 import Address from "./screens/Addresses";
 import * as Localization from "expo-localization";
-import { IntlProvider, defineMessages, useIntl } from "react-intl";
+import Link from "./screens/Link";
+import i18n from "i18n-js";
 
 import en from "./i18n/en.json";
 import de from "./i18n/de.json";
-import it from "./i18n/it.json";
 import fr from "./i18n/fr.json";
-import Link from "./screens/Link";
+import it from "./i18n/it.json";
 
-const i18nMessages: {
-  [locale: string]: any;
-} = {
+i18n.translations = {
   en,
   de,
-  it,
   fr,
+  it,
 };
 
+let locale = Localization.locale;
+if (locale.includes("-") && !(locale in i18n.translations)) {
+  locale = locale.split("-")[0];
+}
+
+i18n.locale = locale;
+i18n.defaultLocale = "en";
+i18n.fallbacks = true;
 const Tab = createBottomTabNavigator();
 
 export type RootStackParamList = {
@@ -31,41 +37,7 @@ export type RootStackParamList = {
   Addresses: undefined;
 };
 
-const messages = defineMessages({
-  scan: {
-    id: "App.navigation.scan",
-    defaultMessage: "Scan",
-  },
-  link: {
-    id: "App.navigation.link",
-    defaultMessage: "Link",
-  },
-  addresses: {
-    id: "App.navigation.addresses",
-    defaultMessage: "Addresses",
-  },
-});
-
-const AppWrapper: FunctionComponent<{ children: ReactNode }> = ({
-  children,
-}) => {
-  let locale = Localization.locale.toLowerCase();
-  if (locale.includes("-") && !(locale in i18nMessages)) {
-    locale = locale.split("-")[0];
-  }
-
-  return (
-    <IntlProvider
-      locale={locale}
-      messages={locale in i18nMessages ? i18nMessages[locale] : i18nMessages.en}
-    >
-      {children}
-    </IntlProvider>
-  );
-};
-
 const InnerApp: FunctionComponent<{}> = () => {
-  const intl = useIntl();
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -91,31 +63,24 @@ const InnerApp: FunctionComponent<{}> = () => {
         <Tab.Screen
           name="Scan"
           component={Scan}
-          options={{ title: intl.formatMessage(messages.scan) }}
+          options={{ title: i18n.t("scan") }}
         />
         <Tab.Screen
           name="Link"
           component={Link}
           options={{
-            title: intl.formatMessage(messages.link),
+            title: i18n.t("link"),
           }}
         />
         <Tab.Screen
           name="Addresses"
           component={Address}
           options={{
-            title: intl.formatMessage(messages.addresses),
+            title: i18n.t("addresses"),
           }}
         />
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
-
-const App = () => (
-  <AppWrapper>
-    <InnerApp />
-  </AppWrapper>
-);
-
 export default App;

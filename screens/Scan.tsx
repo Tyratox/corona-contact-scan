@@ -17,7 +17,7 @@ import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BarCodeScanner, BarCodeScannedCallback } from "expo-barcode-scanner";
 import { RootStackParamList } from "../App";
-import { useIntl, defineMessages } from "react-intl";
+import i18n from "i18n-js";
 
 const ScreenView = styled(SafeAreaView)`
   flex: 1;
@@ -47,50 +47,9 @@ export interface Address {
 
 type ScanNavigationProp = StackNavigationProp<RootStackParamList, "Scan">;
 
-const messages = defineMessages({
-  error: {
-    id: "Scan.error",
-    defaultMessage: "Error",
-  },
-  errorInvalidFormat: {
-    id: "Scan.error.invalidFormat",
-    defaultMessage: "The scanned data isn't formatted correctly",
-  },
-  errorDataIncompleteInvalid: {
-    id: "Scan.error.dataIncompleteWrong",
-    defaultMessage: "The scanned data is incomplete or invalid",
-  },
-  success: {
-    id: "Scan.success",
-    defaultMessage: "Success",
-  },
-  dataRead: {
-    id: "Scan.success.dataRead",
-    defaultMessage: "Contact data successfully read",
-  },
-  testcall: {
-    id: "Scan.success.testcall",
-    defaultMessage: "Testcall",
-  },
-  ok: {
-    id: "Scan.success.ok",
-    defaultMessage: "OK",
-  },
-  askingPermissions: {
-    id: "Scan.askingPermissions",
-    defaultMessage: "Asking for access to the camera",
-  },
-  noPermissions: {
-    id: "Scan.noPermissions",
-    defaultMessage:
-      "No permissions to access the camera. You can change this in the privacy settings.",
-  },
-});
-
 const Scan: FunctionComponent<{
   navigation: ScanNavigationProp;
 }> = ({ navigation }) => {
-  const intl = useIntl();
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [hasPermission, setHasPermission] = useState<null | boolean>(null);
   const [enabled, setEnabled] = useState(true);
@@ -141,19 +100,13 @@ const Scan: FunctionComponent<{
     try {
       data = JSON.parse(rawData);
     } catch (e) {
-      Alert.alert(
-        intl.formatMessage(messages.error),
-        intl.formatMessage(messages.errorInvalidFormat)
-      );
+      Alert.alert(i18n.t("error"), i18n.t("errorInvalidFormat"));
       return;
     }
 
     for (const key of REQUIRED_KEYS) {
       if (!(key in data) || data[key].length === 0) {
-        Alert.alert(
-          intl.formatMessage(messages.error),
-          intl.formatMessage(messages.errorDataIncompleteInvalid)
-        );
+        Alert.alert(i18n.t("error"), i18n.t("errorDataIncompleteInvalid"));
         break;
       }
     }
@@ -168,19 +121,19 @@ const Scan: FunctionComponent<{
     setAddresses(a);
 
     Alert.alert(
-      intl.formatMessage(messages.success),
-      intl.formatMessage(messages.dataRead) +
+      i18n.t("success"),
+      i18n.t("dataRead") +
         "\n" +
         `${data.firstName} ${data.lastName}, ${data.street} ${data.postalCode} ${data.city}` +
         "\n" +
         data.phoneNumber,
       [
         {
-          text: `${intl.formatMessage(messages.testcall)}`,
+          text: `${i18n.t("testcall")}`,
           onPress: () => Linking.openURL(`tel:${data.phoneNumber}`),
         },
         {
-          text: intl.formatMessage(messages.ok),
+          text: i18n.t("ok"),
           onPress: () => setEnabled(true),
         },
       ]
@@ -189,10 +142,10 @@ const Scan: FunctionComponent<{
   };
 
   if (hasPermission === null) {
-    return <Text>{intl.formatMessage(messages.askingPermissions)}</Text>;
+    return <Text>{i18n.t("askingPermissions")}</Text>;
   }
   if (hasPermission === false) {
-    return <Text>{intl.formatMessage(messages.noPermissions)}</Text>;
+    return <Text>{i18n.t("noPermissions")}</Text>;
   }
 
   return (
