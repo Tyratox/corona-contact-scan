@@ -10,18 +10,24 @@ import { IntlProvider, defineMessages, useIntl } from "react-intl";
 
 import en from "./i18n/en.json";
 import de from "./i18n/de.json";
+import it from "./i18n/it.json";
+import fr from "./i18n/fr.json";
+import Link from "./screens/Link";
 
 const i18nMessages: {
   [locale: string]: any;
 } = {
   en,
   de,
+  it,
+  fr,
 };
 
 const Tab = createBottomTabNavigator();
 
 export type RootStackParamList = {
   Scan: undefined;
+  Link: undefined;
   Addresses: undefined;
 };
 
@@ -29,6 +35,10 @@ const messages = defineMessages({
   scan: {
     id: "App.navigation.scan",
     defaultMessage: "Scan",
+  },
+  link: {
+    id: "App.navigation.link",
+    defaultMessage: "Link",
   },
   addresses: {
     id: "App.navigation.addresses",
@@ -39,7 +49,7 @@ const messages = defineMessages({
 const AppWrapper: FunctionComponent<{ children: ReactNode }> = ({
   children,
 }) => {
-  let locale = Localization.locale;
+  let locale = Localization.locale.toLowerCase();
   if (locale.includes("-") && !(locale in i18nMessages)) {
     locale = locale.split("-")[0];
   }
@@ -68,6 +78,8 @@ const InnerApp: FunctionComponent<{}> = () => {
               return (
                 <FontAwesome5 name="address-card" size={size} color={color} />
               );
+            } else if (route.name === "Link") {
+              return <AntDesign name="link" size={size} color={color} />;
             }
           },
         })}
@@ -80,6 +92,13 @@ const InnerApp: FunctionComponent<{}> = () => {
           name="Scan"
           component={Scan}
           options={{ title: intl.formatMessage(messages.scan) }}
+        />
+        <Tab.Screen
+          name="Link"
+          component={Link}
+          options={{
+            title: intl.formatMessage(messages.link),
+          }}
         />
         <Tab.Screen
           name="Addresses"

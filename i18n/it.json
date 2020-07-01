@@ -1,5 +1,6 @@
 {
   "App.navigation.scan": "Scan",
+  "App.navigation.link": "Link",
   "App.navigation.addresses": "Indirizzi",
   "Addresses.exportEntries": "Voci di esportazione",
   "Addresses.deleteEntries": "Cancellare voci",
