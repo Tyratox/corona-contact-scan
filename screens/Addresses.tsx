@@ -14,13 +14,13 @@ import {
   TouchableOpacity,
   Alert,
   Linking,
+  ActivityIndicator,
   View,
 } from "react-native";
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../App";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { AntDesign } from "@expo/vector-icons";
 import { Address } from "./Scan";
 import { defineMessages, useIntl } from "react-intl";
 
@@ -35,30 +35,11 @@ const ListView = styled.View`
 `;
 
 const ListEntry = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   padding: 8px 0;
 `;
 
-const ListTexts = styled.View`
-  flex: 1 2;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 90%;
-`;
 const TimeText = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
   padding-bottom: 4px;
-`;
-
-const ListText = styled.Text`
-  padding-right: 16px;
 `;
 
 const Seperator = styled.View`
@@ -80,6 +61,14 @@ const messages = defineMessages({
     id: "Addresses.deleteEntries",
     defaultMessage: "Delete Entries",
   },
+  deleteEntry: {
+    id: "Addresses.deleteEntry",
+    defaultMessage: "Delete Entry",
+  },
+  confirm: {
+    id: "Addresses.confirm",
+    defaultMessage: "Confirm",
+  },
   dismiss: {
     id: "Addresses.dismiss",
     defaultMessage: "Dismiss",
@@ -87,6 +76,10 @@ const messages = defineMessages({
   call: {
     id: "Addresses.call",
     defaultMessage: "Call",
+  },
+  timestamp: {
+    id: "Addresses.timestamp",
+    defaultMessage: "Timestamp",
   },
   firstName: {
     id: "Addresses.firstName",
@@ -136,13 +129,20 @@ const Addresses: FunctionComponent<{
         setRefreshing(false);
       })
       .catch((e) => {
-        throw new Error(e);
         setRefreshing(false);
+        throw new Error(e);
       });
   };
 
   useEffect(() => {
-    return navigation.addListener("focus", updateAddresses);
+    const removeListener1 = navigation.addListener("focus", updateAddresses);
+    const removeListener2 = navigation.addListener("blur", () =>
+      setAddresses([])
+    );
+    return () => {
+      removeListener1();
+      removeListener2();
+    };
   }, [navigation]);
 
   const deleteEntries = () => {
@@ -151,9 +151,9 @@ const Addresses: FunctionComponent<{
   };
 
   const deleteEntry = (index: number) => {
-    addresses.splice(index, 1);
-    AsyncStorage.setItem("addresses", JSON.stringify(addresses));
-    setAddresses(addresses);
+    const newAddresses = addresses.filter((_, i) => i !== index);
+    AsyncStorage.setItem("addresses", JSON.stringify(newAddresses));
+    setAddresses(newAddresses);
   };
 
   const exportEntries = async () => {
@@ -165,6 +165,7 @@ const Addresses: FunctionComponent<{
       `${FileSystem.cacheDirectory}/${f}.csv`,
       '"' +
         [
+          intl.formatMessage(messages.timestamp),
           intl.formatMessage(messages.firstName),
           intl.formatMessage(messages.lastName),
           intl.formatMessage(messages.street),
@@ -178,6 +179,7 @@ const Addresses: FunctionComponent<{
             (address) =>
               '"' +
               [
+                new Date(address.timestamp).toLocaleDateString(),
                 address.firstName,
                 address.lastName,
                 address.street,
@@ -196,6 +198,9 @@ const Addresses: FunctionComponent<{
   return (
     <ScreenView>
       <ListView>
+        {refreshing && addresses.length === 0 && (
+          <ActivityIndicator size="large" color="#000" />
+        )}
         <FlatList
           data={addresses}
           ItemSeparatorComponent={Seperator}
@@ -223,28 +228,27 @@ const Addresses: FunctionComponent<{
                           onPress: () =>
                             Linking.openURL(`tel:${item.phoneNumber}`),
                         },
+                        {
+                          text: intl.formatMessage(messages.deleteEntry),
+                          onPress: () => deleteEntry(index),
+                          style: "destructive",
+                        },
                       ]
                     )
                   }
                 >
-                  <ListTexts>
-                    <TimeText>
-                      <ListText>{`${
-                        d.getHours() >= 10 ? d.getHours() : "0" + d.getHours()
-                      }:${
-                        d.getMinutes() >= 10
-                          ? d.getMinutes()
-                          : "0" + d.getMinutes()
-                      }`}</ListText>
-                      <ListText>{d.toLocaleDateString()}</ListText>
-                    </TimeText>
-                    <ListText numberOfLines={1}>
-                      {item.firstName + " " + item.lastName}
-                    </ListText>
-                  </ListTexts>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => deleteEntry(index)}>
-                  <AntDesign name="delete" size={20} color="#f00" />
+                  <TimeText>
+                    <Text>{`${
+                      d.getHours() >= 10 ? d.getHours() : "0" + d.getHours()
+                    }:${
+                      d.getMinutes() >= 10
+                        ? d.getMinutes()
+                        : "0" + d.getMinutes()
+                    }  ${d.toLocaleDateString()}`}</Text>
+                  </TimeText>
+                  <Text numberOfLines={1}>
+                    {item.firstName + " " + item.lastName}
+                  </Text>
                 </TouchableOpacity>
               </ListEntry>
             );

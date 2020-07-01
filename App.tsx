@@ -72,7 +72,7 @@ const InnerApp: FunctionComponent<{}> = () => {
           },
         })}
         tabBarOptions={{
-          activeTintColor: "tomato",
+          activeTintColor: "#f1c40f",
           inactiveTintColor: "gray",
         }}
       >

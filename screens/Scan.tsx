@@ -169,7 +169,11 @@ const Scan: FunctionComponent<{
 
     Alert.alert(
       intl.formatMessage(messages.success),
-      intl.formatMessage(messages.dataRead),
+      intl.formatMessage(messages.dataRead) +
+        "\n" +
+        `${data.firstName} ${data.lastName}, ${data.street} ${data.postalCode} ${data.city}` +
+        "\n" +
+        data.phoneNumber,
       [
         {
           text: `${intl.formatMessage(messages.testcall)}`,

@@ -16,12 +16,28 @@
     "defaultMessage": "Delete Entries"
   },
   {
+    "id": "Addresses.deleteEntry",
+    "defaultMessage": "Delete Entry"
+  },
+  {
+    "id": "Addresses.confirm",
+    "defaultMessage": "Confirm"
+  },
+  {
     "id": "Addresses.dismiss",
     "defaultMessage": "Dismiss"
   },
   {
+    "id": "Addresses.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "Addresses.call",
     "defaultMessage": "Call"
+  },
+  {
+    "id": "Addresses.timestamp",
+    "defaultMessage": "Timestamp"
   },
   {
     "id": "Addresses.firstName",
