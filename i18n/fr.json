@@ -24,5 +24,6 @@
   "success.ok": "OK",
   "askingPermissions": "Demander l'accès à la caméra",
   "noPermissions": "Aucune autorisation d'accès à la caméra. Vous pouvez modifier cela dans les paramètres de confidentialité",
-  "showLinkToCustomers": "Montrez ce lien à vos clients. Il s'agit d'un lien vers le site web et l'application."
+  "showLinkToCustomers": "Montrez ce lien à vos clients. Il s'agit d'un lien vers le site web et l'application.",
+  "noEntriesYet": "Aucune donnée n'a encore été lue"
 }

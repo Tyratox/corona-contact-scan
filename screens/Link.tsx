@@ -16,6 +16,7 @@ const ScreenView = styled(SafeAreaView)`
 
 const PaddedText = styled.Text`
   padding-top: 16px;
+  width: 75%;
 `;
 
 type LinkNavigationProp = StackNavigationProp<RootStackParamList, "Link">;

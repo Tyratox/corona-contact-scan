@@ -24,5 +24,6 @@
   "success.ok": "OK",
   "askingPermissions": "Richiesta di accesso alla telecamera",
   "noPermissions": "Nessun permesso di accesso alla telecamera. È possibile modificarlo nelle impostazioni della privacy",
-  "showLinkToCustomers": "Mostra questo link ai tuoi clienti. Si collega al sito web e all'app."
+  "showLinkToCustomers": "Mostra questo link ai tuoi clienti. Si collega al sito web e all'app.",
+  "noEntriesYet": "Non è stato ancora letto alcun dato"
 }

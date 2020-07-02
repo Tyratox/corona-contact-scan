@@ -145,6 +145,9 @@ const Addresses: FunctionComponent<{
         {refreshing && addresses.length === 0 && (
           <ActivityIndicator size="large" color="#000" />
         )}
+        {!refreshing && addresses.length === 0 && (
+          <Text>{i18n.t("noEntriesYet")}</Text>
+        )}
         <FlatList
           data={addresses}
           ItemSeparatorComponent={Seperator}

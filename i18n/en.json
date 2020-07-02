@@ -24,5 +24,6 @@
   "success.ok": "OK",
   "askingPermissions": "Asking for access to the camera",
   "noPermissions": "No permissions to access the camera. You can change this in the privacy settings",
-  "showLinkToCustomers": "Show this link to your customers. It links to the website and app."
+  "showLinkToCustomers": "Show this link to your customers. It links to the website and app.",
+  "noEntriesYet": "No data was read yet"
 }

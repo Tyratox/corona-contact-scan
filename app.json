@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "corona-contact-scan",
-    "slug": "corona-contact-scan",
+    "name": "Ciao SCAN",
+    "slug": "ciao-scan",
     "platforms": [
       "ios",
       "android",

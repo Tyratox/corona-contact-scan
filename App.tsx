@@ -37,7 +37,7 @@ export type RootStackParamList = {
   Addresses: undefined;
 };
 
-const InnerApp: FunctionComponent<{}> = () => {
+const App: FunctionComponent<{}> = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -56,7 +56,7 @@ const InnerApp: FunctionComponent<{}> = () => {
           },
         })}
         tabBarOptions={{
-          activeTintColor: "#f1c40f",
+          activeTintColor: "#000",
           inactiveTintColor: "gray",
         }}
       >

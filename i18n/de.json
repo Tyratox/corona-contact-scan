@@ -24,5 +24,6 @@
   "success.ok": "OK",
   "askingPermissions": "Frage nach Kameraberechtigungen",
   "noPermissions": "Keinen Zugriff auf die Kamera. Dies kann in den Datenschutzeinstellungen geändert werden",
-  "showLinkToCustomers": "Zeige diesen Link den Kunden. Er verlinkt zur Website und App."
+  "showLinkToCustomers": "Zeige diesen Link den Kunden. Er verlinkt zur Website und App.",
+  "noEntriesYet": "Es wurden bisher keine Daten eingelesen"
 }
