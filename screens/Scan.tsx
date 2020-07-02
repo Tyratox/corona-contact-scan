@@ -100,13 +100,13 @@ const Scan: FunctionComponent<{
     try {
       data = JSON.parse(rawData);
     } catch (e) {
-      Alert.alert(i18n.t("error"), i18n.t("errorInvalidFormat"));
+      Alert.alert(i18n.t("error"), i18n.t("invalidFormat"));
       return;
     }
 
     for (const key of REQUIRED_KEYS) {
       if (!(key in data) || data[key].length === 0) {
-        Alert.alert(i18n.t("error"), i18n.t("errorDataIncompleteInvalid"));
+        Alert.alert(i18n.t("error"), i18n.t("dataIncompleteInvalid"));
         break;
       }
     }

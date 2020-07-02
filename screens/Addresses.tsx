@@ -47,6 +47,10 @@ const Seperator = styled.View`
   height: 0.5px;
 `;
 
+const Spacer = styled.View`
+  margin-bottom: 16px;
+`;
+
 type AddressesNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Addresses"
@@ -202,6 +206,7 @@ const Addresses: FunctionComponent<{
           }}
         ></FlatList>
         <Button title={i18n.t("exportEntries")} onPress={exportEntries} />
+        <Spacer />
         <Button
           title={i18n.t("deleteEntries")}
           onPress={deleteEntries}
