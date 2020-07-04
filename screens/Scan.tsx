@@ -130,7 +130,11 @@ const Scan: FunctionComponent<{
       [
         {
           text: `${i18n.t("testcall")}`,
-          onPress: () => Linking.openURL(`tel:${data.phoneNumber}`),
+          onPress: () => {
+            Linking.openURL(`tel:${data.phoneNumber}`).then(() =>
+              setEnabled(true)
+            );
+          },
         },
         {
           text: i18n.t("ok"),
