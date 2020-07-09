@@ -146,10 +146,18 @@ const Scan: FunctionComponent<{
   };
 
   if (hasPermission === null) {
-    return <Text>{i18n.t("askingPermissions")}</Text>;
+    return (
+      <ScreenView>
+        <Text>{i18n.t("askingPermissions")}</Text>
+      </ScreenView>
+    );
   }
   if (hasPermission === false) {
-    return <Text>{i18n.t("noPermissions")}</Text>;
+    return (
+      <ScreenView>
+        <Text>{i18n.t("noPermissions")}</Text>
+      </ScreenView>
+    );
   }
 
   return (
