@@ -8,7 +8,6 @@
   "confirm": "Bestätigen",
   "dismiss": "Schliessen",
   "call": "Anrufen",
-  "timestamp": "Zeitstempel",
   "firstName": "Vorname",
   "lastName": "Nachname",
   "street": "Strasse",
@@ -24,6 +23,10 @@
   "ok": "OK",
   "askingPermissions": "Frage nach Kameraberechtigungen",
   "noPermissions": "Keinen Zugriff auf die Kamera. Dies kann in den Datenschutzeinstellungen geändert werden",
+  "check-in": "Check-In",
+  "check-out": "Check-Out",
+  "noMatchingCheckIn": "Check-out fehlgeschlagen. Es wurde kein passendes Check-in gefunden.",
+  "checkout-success": "Check-out erfolgreich.",
   "showLinkToCustomers": "Zeige diesen Link den Kunden. Er verlinkt zur Website und App.",
   "noEntriesYet": "Es wurden bisher keine Daten eingelesen"
 }

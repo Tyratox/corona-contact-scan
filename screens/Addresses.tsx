@@ -113,7 +113,8 @@ const Addresses: FunctionComponent<{
       `${FileSystem.cacheDirectory}/${f}.csv`,
       '"' +
         [
-          i18n.t("timestamp"),
+          i18n.t("check-in"),
+          i18n.t("check-out"),
           i18n.t("firstName"),
           i18n.t("lastName"),
           i18n.t("street"),
@@ -127,7 +128,10 @@ const Addresses: FunctionComponent<{
             (address) =>
               '"' +
               [
-                new Date(address.timestamp).toLocaleDateString(),
+                new Date(address.timestamp).toLocaleString(),
+                address.checkout
+                  ? new Date(address.checkout).toLocaleString()
+                  : "",
                 address.firstName,
                 address.lastName,
                 address.street,
@@ -159,7 +163,8 @@ const Addresses: FunctionComponent<{
           refreshing={refreshing}
           onRefresh={updateAddresses}
           renderItem={({ item, index }) => {
-            const d = new Date(item.timestamp);
+            const d1 = new Date(item.timestamp);
+            const d2 = item.checkout ? new Date(item.checkout) : undefined;
 
             return (
               <ListEntry>
@@ -189,13 +194,29 @@ const Addresses: FunctionComponent<{
                   }
                 >
                   <TimeText>
-                    <Text>{`${
-                      d.getHours() >= 10 ? d.getHours() : "0" + d.getHours()
-                    }:${
-                      d.getMinutes() >= 10
-                        ? d.getMinutes()
-                        : "0" + d.getMinutes()
-                    }  ${d.toLocaleDateString()}`}</Text>
+                    <Text>
+                      {`${
+                        d1.getHours() >= 10
+                          ? d1.getHours()
+                          : "0" + d1.getHours()
+                      }:${
+                        d1.getMinutes() >= 10
+                          ? d1.getMinutes()
+                          : "0" + d1.getMinutes()
+                      }  ${d1.toLocaleDateString()} ${
+                        d2
+                          ? `- ${
+                              d2.getHours() >= 10
+                                ? d2.getHours()
+                                : "0" + d2.getHours()
+                            }:${
+                              d2.getMinutes() >= 10
+                                ? d2.getMinutes()
+                                : "0" + d2.getMinutes()
+                            }  ${d2.toLocaleDateString()}`
+                          : ""
+                      }`}
+                    </Text>
                   </TimeText>
                   <Text numberOfLines={1}>
                     {item.firstName + " " + item.lastName}

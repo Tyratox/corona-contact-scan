@@ -8,7 +8,6 @@
   "confirm": "Confirm",
   "dismiss": "Dismiss",
   "call": "Call",
-  "timestamp": "Timestamp",
   "firstName": "First name",
   "lastName": "Last name",
   "street": "Street",
@@ -24,6 +23,10 @@
   "ok": "OK",
   "askingPermissions": "Asking for access to the camera",
   "noPermissions": "No permissions to access the camera. You can change this in the privacy settings",
+  "check-in": "Check-In",
+  "check-out": "Check-Out",
+  "noMatchingCheckIn": "Check-out failed. No matching Check-in was found.",
+  "checkout-success": "Check-out successful.",
   "showLinkToCustomers": "Show this link to your customers. It links to the website and app.",
   "noEntriesYet": "No data was read yet"
 }

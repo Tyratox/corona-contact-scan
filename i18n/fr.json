@@ -8,7 +8,6 @@
   "confirm": "Confirmer",
   "dismiss": "Renvoi",
   "call": "Appelez",
-  "timestamp": "Horodatage",
   "firstName": "Prénom",
   "lastName": "Nom",
   "street": "Rue",
@@ -24,6 +23,10 @@
   "ok": "OK",
   "askingPermissions": "Demander l'accès à la caméra",
   "noPermissions": "Aucune autorisation d'accès à la caméra. Vous pouvez modifier cela dans les paramètres de confidentialité",
+  "check-in": "Check-In",
+  "check-out": "Check-Out",
+  "noMatchingCheckIn": "Le check-out a échoué. Aucun check-in correspondant n'a été trouvé.",
+  "checkout-success": "Check-out réussi.",
   "showLinkToCustomers": "Montrez ce lien à vos clients. Il s'agit d'un lien vers le site web et l'application.",
   "noEntriesYet": "Aucune donnée n'a encore été lue"
 }
