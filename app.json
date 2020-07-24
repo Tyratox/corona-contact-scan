@@ -3,7 +3,7 @@
     "name": "Ciao SCAN",
     "slug": "ciao-scan",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "primaryColor": "#FFEA2A",
     "icon": "./assets/icon.png",
@@ -18,12 +18,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "ch.feuerschutz.ciao.scan",
-      "buildNumber": "1.0.2",
+      "buildNumber": "1.0.3",
       "supportsTablet": true
     },
     "android": {
       "package": "ch.feuerschutz.ciao.scan",
-      "versionCode": 3,
+      "versionCode": 4,
       "permissions": ["CAMERA"]
     },
     "description": ""
