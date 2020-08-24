@@ -51,15 +51,20 @@ const REQUIRED_KEYS = [
   "postalCode",
   "city",
   "phoneNumber",
+  "email",
 ];
 
+export const ADDRESS_API_VERSION = 2;
+
 export interface Address {
+  version?: number; // '?' because not in initial release
   firstName: string;
   lastName: string;
   street: string;
   postalCode: string;
   city: string;
   phoneNumber: string;
+  email?: string; // '?' because not in initial release
   timestamp: number;
   checkout?: number;
 }
@@ -116,22 +121,36 @@ const Scan: FunctionComponent<{
       return;
     }
 
+    setEnabled(false);
+
     let data: { [key: string]: string };
     try {
       data = JSON.parse(rawData);
     } catch (e) {
-      Alert.alert(i18n.t("error"), i18n.t("invalidFormat"));
+      Alert.alert(i18n.t("error"), i18n.t("invalidFormat"), [
+        { onPress: () => setEnabled(true), text: i18n.t("ok") },
+      ]);
+      return;
+    }
+
+    if (!("version" in data) || parseInt(data.version) < ADDRESS_API_VERSION) {
+      Alert.alert(i18n.t("error"), i18n.t("clientOutdated"), [
+        { onPress: () => setEnabled(true), text: i18n.t("ok") },
+      ]);
+      return;
+    } else if (parseInt(data.version) > ADDRESS_API_VERSION) {
+      Alert.alert(i18n.t("error"), i18n.t("scannerOutdated"), [
+        { onPress: () => setEnabled(true), text: i18n.t("ok") },
+      ]);
       return;
     }
 
     for (const key of REQUIRED_KEYS) {
       if (!(key in data) || data[key].length === 0) {
         Alert.alert(i18n.t("error"), i18n.t("dataIncompleteInvalid"));
-        break;
+        return;
       }
     }
-
-    setEnabled(false);
 
     if (scanMode === ScanMode.CHECK_IN) {
       //@ts-ignore

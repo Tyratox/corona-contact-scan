@@ -121,6 +121,7 @@ const Addresses: FunctionComponent<{
           i18n.t("postalCode"),
           i18n.t("city"),
           i18n.t("phoneNumber"),
+          i18n.t("email"),
         ].join('","') +
         '"\n' +
         addresses
@@ -138,6 +139,7 @@ const Addresses: FunctionComponent<{
                 address.postalCode,
                 address.city,
                 address.phoneNumber,
+                address.email,
               ].join('","') +
               '"'
           )
@@ -172,7 +174,9 @@ const Addresses: FunctionComponent<{
                   onPress={() =>
                     Alert.alert(
                       item.firstName + " " + item.lastName,
-                      `${item.street}, ${item.postalCode} ${item.city} ${item.phoneNumber}`,
+                      `${item.street}, ${item.postalCode} ${item.city}\n ${
+                        item.phoneNumber
+                      } | ${item.email ? item.email : i18n.t("noEmail")}`,
                       [
                         {
                           text: i18n.t("dismiss"),
