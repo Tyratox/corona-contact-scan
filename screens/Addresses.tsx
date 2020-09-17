@@ -122,6 +122,7 @@ const Addresses: FunctionComponent<{
           i18n.t("city"),
           i18n.t("phoneNumber"),
           i18n.t("email"),
+          i18n.t("dateOfBirth"),
         ].join('","') +
         '"\n' +
         addresses
@@ -139,7 +140,8 @@ const Addresses: FunctionComponent<{
                 address.postalCode,
                 address.city,
                 address.phoneNumber,
-                address.email,
+                address.email || "",
+                address.dateOfBirth || "",
               ].join('","') +
               '"'
           )

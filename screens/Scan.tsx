@@ -52,9 +52,10 @@ const REQUIRED_KEYS = [
   "city",
   "phoneNumber",
   "email",
+  "dateOfBirth",
 ];
 
-export const ADDRESS_API_VERSION = 2;
+export const ADDRESS_API_VERSION = 3;
 
 export interface Address {
   version?: number; // '?' because not in initial release
@@ -65,6 +66,7 @@ export interface Address {
   city: string;
   phoneNumber: string;
   email?: string; // '?' because not in initial release
+  dateOfBirth?: string; // '?' because not in initial release
   timestamp: number;
   checkout?: number;
 }

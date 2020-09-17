@@ -16,6 +16,7 @@
   "city": "Stadt",
   "phoneNumber": "Telefonnummer",
   "email": "E-Mail",
+  "dateOfBirth": "Geburtsdatum",
   "error": "Fehler",
   "clientOutdated": "Die App des Kunden ist nicht auf dem neusten Stand. Die App muss aktualisiert werden bevor der Code eingelesen werden kann.",
   "scannerOutdated": "Ihre App ist nicht auf dem neusten Stand. Aktualisieren Sie diese App um diesen Code scannen zu können.",

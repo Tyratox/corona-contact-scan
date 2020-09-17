@@ -16,6 +16,7 @@
   "city": "City",
   "phoneNumber": "Phone number",
   "email": "Email",
+  "dateOfBirth": "Date of birth",
   "error": "Error",
   "clientOutdated": "The client app isn't up to date. Please tell your client to install the latest update.",
   "scannerOutdated": "The scanner app isn't up to date. Please open the store and install the latest update in order to scan this code.",

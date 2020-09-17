@@ -16,6 +16,7 @@
   "city": "Luogo di residenza",
   "phoneNumber": "Numero di telefono",
   "email": "e-mail",
+  "dateOfBirth": "Data di nascita",
   "error": "Error",
   "clientOutdated": "L'applicazione cliente non è aggiornata. Dite al vostro cliente di installare l'ultimo aggiornamento.",
   "scannerOutdated": "Si prega di aprire il negozio e installare l'ultimo aggiornamento per poter scansionare questo codice.",
