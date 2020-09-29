@@ -3,7 +3,7 @@
   "link": "Link",
   "addresses": "Addresses",
   "exportEntries": "Export Entries",
-  "deleteEntries": "Delete Entries",
+  "archiveEntries": "Archive Entries",
   "deleteEntry": "Delete Entry",
   "noEmail": "No email",
   "confirm": "Confirm",
@@ -33,5 +33,13 @@
   "noMatchingCheckIn": "Check-out failed. No matching Check-in was found.",
   "checkout-success": "Check-out successful.",
   "showLinkToCustomers": "Show this link to your customers. It links to the website and app.",
-  "noEntriesYet": "No data was read yet"
+  "noEntriesYet": "No data was read yet",
+  "archive": "Archive",
+  "noArchivedEntriesYet": "No data was archived yet",
+  "visitorCount": "Visitor count",
+  "visitorsNotCheckedOut": "Not checked out",
+  "attention": "Attention",
+  "notExportedYet": "The entries weren't exported yet, should they be archived anyway?",
+  "cancel": "Cancel",
+  "deleteBackup": "Delete backup"
 }

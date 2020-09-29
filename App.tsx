@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import Scan from "./screens/Scan";
 import Address from "./screens/Addresses";
 import * as Localization from "expo-localization";
@@ -13,6 +14,7 @@ import en from "./i18n/en.json";
 import de from "./i18n/de.json";
 import fr from "./i18n/fr.json";
 import it from "./i18n/it.json";
+import Archive from "./screens/Archive";
 
 i18n.translations = {
   en,
@@ -35,6 +37,7 @@ export type RootStackParamList = {
   Scan: undefined;
   Link: undefined;
   Addresses: undefined;
+  Archive: undefined;
 };
 
 const App: FunctionComponent<{}> = () => {
@@ -52,6 +55,8 @@ const App: FunctionComponent<{}> = () => {
               );
             } else if (route.name === "Link") {
               return <AntDesign name="link" size={size} color={color} />;
+            } else if (route.name === "Archive") {
+              return <Entypo name="archive" size={size} color={color} />;
             }
           },
         })}
@@ -77,6 +82,13 @@ const App: FunctionComponent<{}> = () => {
           component={Address}
           options={{
             title: i18n.t("addresses"),
+          }}
+        />
+        <Tab.Screen
+          name="Archive"
+          component={Archive}
+          options={{
+            title: i18n.t("archive"),
           }}
         />
       </Tab.Navigator>

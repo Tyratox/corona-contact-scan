@@ -3,7 +3,7 @@
   "link": "Link",
   "addresses": "Indirizzi",
   "exportEntries": "Voci di esportazione",
-  "deleteEntries": "Cancellare voci",
+  "archiveEntries": "Voci dell'archivio",
   "deleteEntry": "Cancellare la voce",
   "noEmail": "Nessuna e-mail",
   "confirm": "Confermare",
@@ -33,5 +33,13 @@
   "noMatchingCheckIn": "Check-out fallito. Non è stato trovato alcun Check-in corrispondente.",
   "checkout-success": "Check-out riuscito.",
   "showLinkToCustomers": "Mostra questo link ai tuoi clienti. Si collega al sito web e all'app.",
-  "noEntriesYet": "Non è stato ancora letto alcun dato"
+  "noEntriesYet": "Non è stato ancora letto alcun dato",
+  "archive": "Archive",
+  "noArchivedEntriesYet": "Non è stato ancora archiviato alcun dato",
+  "visitorCount": "Conteggio dei visitatori",
+  "visitorsNotCheckedOut": "Non checked out",
+  "attention": "Attenzione",
+  "notExportedYet": "Le voci non sono state ancora esportate, devono essere comunque archiviate?",
+  "cancel": "Annullare",
+  "deleteBackup": "Cancellare il backup"
 }

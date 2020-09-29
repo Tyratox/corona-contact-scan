@@ -56,6 +56,78 @@ type AddressesNavigationProp = StackNavigationProp<
   "Addresses"
 >;
 
+const ensureDirExists = async (directory: string) => {
+  const dirInfo = await FileSystem.getInfoAsync(directory);
+  if (!dirInfo.exists) {
+    await FileSystem.makeDirectoryAsync(directory, {
+      intermediates: true,
+    });
+  }
+};
+
+const saveEntriesToFile = async (
+  addresses: Address[],
+  directory = FileSystem.cacheDirectory
+) => {
+  const now = new Date();
+  const f = `ciao-data-export-${now.getFullYear()}-${
+    now.getMonth() + 1
+  }-${now.getDate()}`;
+
+  const basePath = `${directory}/${f}.csv`;
+
+  let path = basePath;
+  let suffix = 0;
+
+  let info = await FileSystem.getInfoAsync(path);
+  while (info.exists) {
+    suffix++;
+    path = basePath.replace(/\.csv/, `-${suffix}.csv`);
+    info = await FileSystem.getInfoAsync(path);
+  }
+
+  await FileSystem.writeAsStringAsync(
+    path,
+    '"' +
+      [
+        i18n.t("check-in"),
+        i18n.t("check-out"),
+        i18n.t("firstName"),
+        i18n.t("lastName"),
+        i18n.t("street"),
+        i18n.t("postalCode"),
+        i18n.t("city"),
+        i18n.t("phoneNumber"),
+        i18n.t("email"),
+        i18n.t("dateOfBirth"),
+      ].join('","') +
+      '"\n' +
+      addresses
+        .map(
+          (address) =>
+            '"' +
+            [
+              new Date(address.timestamp).toLocaleString(),
+              address.checkout
+                ? new Date(address.checkout).toLocaleString()
+                : "",
+              address.firstName,
+              address.lastName,
+              address.street,
+              address.postalCode,
+              address.city,
+              address.phoneNumber,
+              address.email || "",
+              address.dateOfBirth || "",
+            ].join('","') +
+            '"'
+        )
+        .join("\n")
+  );
+
+  return path;
+};
+
 const Addresses: FunctionComponent<{
   navigation: AddressesNavigationProp;
 }> = ({ navigation }) => {
@@ -93,9 +165,32 @@ const Addresses: FunctionComponent<{
     };
   }, [navigation]);
 
-  const deleteEntries = () => {
-    AsyncStorage.setItem("addresses", "[]");
-    setAddresses([]);
+  const trashEntries = async () => {
+    const exported = (await AsyncStorage.getItem("exported")) === "true";
+    const path = `${FileSystem.documentDirectory}archive/`;
+    await ensureDirExists(path);
+
+    if (!exported) {
+      Alert.alert(i18n.t("attention"), i18n.t("notExportedYet"), [
+        {
+          onPress: async () => {
+            await saveEntriesToFile(addresses, path);
+
+            AsyncStorage.setItem("addresses", "[]");
+            AsyncStorage.removeItem("exported");
+            setAddresses([]);
+          },
+          text: i18n.t("ok"),
+        },
+        { onPress: () => {}, text: i18n.t("cancel"), style: "cancel" },
+      ]);
+    } else {
+      await saveEntriesToFile(addresses, path);
+
+      AsyncStorage.setItem("addresses", "[]");
+      AsyncStorage.removeItem("exported");
+      setAddresses([]);
+    }
   };
 
   const deleteEntry = (index: number) => {
@@ -105,55 +200,24 @@ const Addresses: FunctionComponent<{
   };
 
   const exportEntries = async () => {
-    const now = new Date();
-    const f = `ciao-data-export-${now.getFullYear()}-${
-      now.getMonth() + 1
-    }-${now.getDate()}`;
-    await FileSystem.writeAsStringAsync(
-      `${FileSystem.cacheDirectory}/${f}.csv`,
-      '"' +
-        [
-          i18n.t("check-in"),
-          i18n.t("check-out"),
-          i18n.t("firstName"),
-          i18n.t("lastName"),
-          i18n.t("street"),
-          i18n.t("postalCode"),
-          i18n.t("city"),
-          i18n.t("phoneNumber"),
-          i18n.t("email"),
-          i18n.t("dateOfBirth"),
-        ].join('","') +
-        '"\n' +
-        addresses
-          .map(
-            (address) =>
-              '"' +
-              [
-                new Date(address.timestamp).toLocaleString(),
-                address.checkout
-                  ? new Date(address.checkout).toLocaleString()
-                  : "",
-                address.firstName,
-                address.lastName,
-                address.street,
-                address.postalCode,
-                address.city,
-                address.phoneNumber,
-                address.email || "",
-                address.dateOfBirth || "",
-              ].join('","') +
-              '"'
-          )
-          .join("\n")
-    );
-    await Sharing.shareAsync(`${FileSystem.cacheDirectory}/${f}.csv`);
-    await FileSystem.deleteAsync(`${FileSystem.cacheDirectory}/${f}.csv`);
+    const path = await saveEntriesToFile(addresses, FileSystem.cacheDirectory);
+
+    await Sharing.shareAsync(path);
+    await FileSystem.deleteAsync(path);
+
+    AsyncStorage.setItem("exported", "true");
   };
 
   return (
     <ScreenView>
       <ListView>
+        <Text>
+          {i18n.t("visitorCount")}: {addresses.length}
+        </Text>
+        <Text style={{ marginBottom: 16 }}>
+          {i18n.t("visitorsNotCheckedOut")}:{" "}
+          {addresses.filter((a) => !a.checkout).length}
+        </Text>
         {refreshing && addresses.length === 0 && (
           <ActivityIndicator size="large" color="#000" />
         )}
@@ -235,8 +299,8 @@ const Addresses: FunctionComponent<{
         <Button title={i18n.t("exportEntries")} onPress={exportEntries} />
         <Spacer />
         <Button
-          title={i18n.t("deleteEntries")}
-          onPress={deleteEntries}
+          title={i18n.t("archiveEntries")}
+          onPress={trashEntries}
           color="#f00"
         />
       </ListView>
