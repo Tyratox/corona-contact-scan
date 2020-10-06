@@ -2,12 +2,8 @@
   "expo": {
     "name": "Ciao SCAN",
     "slug": "ciao-scan",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.5",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.6",
     "orientation": "portrait",
     "primaryColor": "#FFEA2A",
     "icon": "./assets/icon.png",
@@ -19,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "locales": {
       "de": "./locales/ios/de.json",
       "fr": "./locales/ios/fr.json",
@@ -29,7 +23,7 @@
     },
     "ios": {
       "bundleIdentifier": "ch.feuerschutz.ciao.scan",
-      "buildNumber": "1.0.5",
+      "buildNumber": "1.0.6",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "The app needs access to your camera in order to scan qr codes on other devices."
@@ -37,10 +31,8 @@
     },
     "android": {
       "package": "ch.feuerschutz.ciao.scan",
-      "versionCode": 6,
-      "permissions": [
-        "CAMERA"
-      ]
+      "versionCode": 7,
+      "permissions": ["CAMERA"]
     },
     "description": ""
   }
